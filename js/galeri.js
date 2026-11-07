@@ -18,15 +18,22 @@ const namaFotoGaleri = [
     "prewed17_result.webp"
 ];
 
+const galeriAssetBase = new URL("../img/galeri/", document.currentScript.src);
+
 function renderGaleriOtomatis(totalFoto = namaFotoGaleri.length) {
     const container = document.getElementById("galeriGrid");
     if (!container) return;
 
     let htmlFoto = "";
     for (const [index, namaFoto] of namaFotoGaleri.slice(0, totalFoto).entries()) {
+        const thumbnailUrl = new URL(
+            namaFoto.replace("_result.webp", "_thumb.jpg"),
+            galeriAssetBase
+        ).href;
+        const fullImageUrl = new URL(namaFoto, galeriAssetBase).href;
         htmlFoto += `
             <div class="galeri-item item-${index + 1} animasi-scroll animasi-zoom" onclick="bukaModal(this)">
-                <img src="img/Galeri/${namaFoto.replace("_result.webp", "_thumb.jpg")}" data-full-src="img/Galeri/${namaFoto}" alt="Prewedding ${index + 1}" loading="lazy" decoding="async">
+                <img src="${thumbnailUrl}" data-full-src="${fullImageUrl}" alt="Prewedding ${index + 1}" loading="lazy" decoding="async">
             </div>
         `;
     }
