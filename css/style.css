@@ -1856,6 +1856,12 @@ h1.mertua {
         display: none; /* Sembunyikan bagian kiri */
     }
 
+    .welcome-cover {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
     .halaman-rekening .nama-norek {
         text-align: left;
     }
