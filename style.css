@@ -1,0 +1,1882 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden; /* Mencegah geseran horizontal */
+    scroll-behavior: smooth;
+    background-color: #350202; /* Warna latar belakang default */
+}
+:root {
+    --warna-merah: #4e0707;
+    --warna-putih: #f5f4f4;
+}
+
+.main-wrapper {
+    min-height: 100vh;
+    height: auto;
+}
+
+.split-container {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    /* Pastikan kontainer utama menggunakan flex row di layar besar */
+    flex-direction: row;
+}
+
+/*//! BAGIAN KIRI (Area Statis / Dekoratif) */
+.left-side {
+    flex: 1;
+    position: relative;
+    container-type: inline-size;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/asset/sampulkiri.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 0;
+}
+
+.hero-cover {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    max-width: calc(100% - 4rem);     /* baru: teks tidak keluar dari kolom */
+}
+
+.hero1 { 
+    font-size: clamp(1.1rem,  6.4cqw, 2rem);   
+    font-family: "Times New Roman", serif;
+    color:#f7f5f5; 
+}
+.hero2 { 
+    font-size: clamp(2.2rem,  16cqw,  5rem);
+    font-family: "Great Vibes", cursive;
+    color:#f4f3f3; 
+}
+.hero3 { 
+    font-size: clamp(0.85rem, 3.5cqw, 1.1rem);
+    font-family: "Times New Roman", serif;
+    color: #f4f3f3; 
+}
+
+/*//! BAGIAN KANAN (Viewport Khusus / Mobile Ratio) */
+.right-side {
+    width: 450px;
+    min-width: 450px;
+    flex-shrink: 2; 
+    height: 100vh;
+    overflow-y: hidden;
+    position: relative;
+    background: url('../img/asset/prewed.webp');
+    background-size: cover;
+    background-position: center;
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.right-side::-webkit-scrollbar {
+    width: 6px;
+}
+
+.right-side::-webkit-scrollbar-track {
+    background-color: #350202db;
+}
+
+.right-side::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+/* Pastikan background dasar utama juga menggunakan lebar piksel yang sama */
+.background-dasar-utama {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; 
+    pointer-events: none;
+}
+
+/* //!🌟 STYLING WELCOME SPLASH SCREEN */
+.welcome-cover {
+    position: fixed;
+    top: 0;
+    left: auto;
+    right: 0;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    height: 100dvh;
+    background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.183)), url(../img/asset/cover.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 9999;
+    transform: translateY(0);
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.2s ease, visibility 1.2s;
+    overflow: hidden;
+    transform-origin: center center;
+}
+
+/* Saat tombol diklik dan class .terbuka ditambahkan via JS */
+.welcome-cover.terbuka {
+    animation: none;
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* Hentikan sisa animasi elemen anak agar tidak merusak pergerakan transisi */
+.welcome-cover.terbuka img,
+.welcome-cover.terbuka .kapsul-welcome {
+    animation-play-state: paused !important;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* //!=========================================
+    KAPSUL TRANSPARAN WELCOME COVER
+/* //!=========================================*/
+.kapsul-welcome {
+    position: relative;
+    z-index: 5;
+    width: 85%;
+    height: 90%;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.438); /* Transparan putih */
+    backdrop-filter: blur(4px); /* Efek frosted glass / kaca buram */
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 20rem 20rem 0rem 0rem; /* Bentuk kapsul melengkung */
+    border: 1px solid rgba(255, 255, 255, 0.317);
+    outline: 8px solid rgba(113, 10, 10, 0.781);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem 1.2rem;
+}
+
+.text-welcome {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* //!Desain Teks & Tombol di Dalam Kapsul */
+.wel1 {
+    font-family: "times new roman";
+    font-size: 2rem;
+    color: #0c0c0c;
+    margin-bottom: 0.5rem;
+}
+.wel2 {
+    font-family: "Great Vibes", cursive;
+    font-size: 3rem;
+    color: #4e0707;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+.wel3 {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.85rem;
+    color: #131313;
+    margin-bottom: 0.3rem;
+}
+.nama-tamu {
+    font-family: "Castoro Titling", serif;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #060505;
+    margin-bottom: 1.8rem;
+}
+.btn-buka-baru {
+    padding: 0.7rem 2.2rem;
+    border: none;
+    border-radius: 2rem;
+    background-color: #6d1809;
+    color: white;
+    font-family: "Castoro Titling", serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(168, 126, 126, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+.btn-buka-baru:hover {
+    transform: translateY(-2px);
+    background-color: #e2cccc;
+    color: rgb(12, 12, 12);
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* //!=========================================
+   PENGATURAN VIDEO LATAR BELAKANG HALAMAN
+   ========================================= */
+.video-mempelai {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memenuhi area secara proporsional; sisi video dapat terpotong jika rasio berbeda */
+    z-index: 0;
+}
+
+/*//! ============================== */
+        /*//! HALAMAN 1 (COVER) */
+/*//! ============================== */
+.halaman-1 {
+    background-image: url('../img/asset/prewed.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.tex-hal1 {
+    font-family: "Great Vibes", cursive;
+    color: #710c0c;
+    padding-top: 60%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+}
+.hal1 {
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+.hal2 {
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+.background-halaman-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* Memastikan gambar memenuhi area tanpa merusak proporsi */
+    z-index: -1;         /* Ditempatkan di lapisan paling belakang agar teks berada di atasnya */
+    pointer-events: none;
+}
+
+.pohonkiri1 {
+    top: -8%;
+    left: -15%;
+    width: 45%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: bottom left;
+    /* Gabungan: masuk dari kiri (durasi 1.2s), lalu lanjut animasi pohon bergoyang */
+    animation: masukKiri 1.2s ease-out forwards, anginPohon 9s ease-in-out infinite 1.2s;
+}
+
+.pohonkiri2 {
+    bottom: 19%;
+    left: -20%;
+    width: 50%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: bottom left;
+    animation: anginPohon 11s ease-in-out infinite;
+}
+
+.pohonkanan1 {
+    top: 33%;
+    right: -5%;
+    width: 30%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: bottom right;
+    animation: anginPohon 8s ease-in-out infinite;
+}
+
+.pohonkanan2 {
+    bottom: 19%;
+    right: -20%;
+    width: 50%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: bottom right;
+    animation: anginPohon 10s ease-in-out infinite;
+}
+
+
+.bungakanan {
+    bottom: -5%;
+    right: -12%;
+    width: 60%;
+    position: absolute;
+    z-index: 3;
+    transform-origin: bottom right;
+    animation: ayunBunga 10s ease-in-out infinite;
+}
+
+.kupu {
+    z-index: 1;
+    width: 90%;
+    bottom: 10%;
+    position: absolute;
+}
+
+.burung {
+    z-index: 1;
+    left: 20%;
+    width: 30%;
+    top: 10%;
+    position: absolute;
+    filter: brightness(0);
+}
+
+
+/*//! ============================== */
+            /*//! HALAMAN 2 */
+/*//! ============================== */
+.halaman-2 {
+    margin: 0;
+    min-height: 600px; 
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    background-color: rgb(118, 9, 9);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    overflow: hidden;
+}
+
+/* wrapper dan styling pohon kiri atas */
+.pohon-kiri-atas-pembungkus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    z-index: 2;
+    pointer-events: none;
+}
+.pohon-kiri-atas {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform-origin: top left;
+    animation: anginPohon 9s ease-in-out infinite;
+}
+
+/* wrapper dan styling pohon kanan bawah */
+.pohon-kanan-bawah-pembungkus {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    z-index: 2;
+    pointer-events: none;
+}
+.pohon-kanan-bawah {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform-origin: bottom right;
+    z-index: 2;
+    animation: anginPohon 9s ease-in-out infinite;
+}
+.bunga-kiri-atas-pembungkus{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+.bunga1 {
+    position: relative;
+    display: block;
+    top: 20px;
+    right: -50px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform-origin: bottom right;
+    z-index: 2;
+}
+.bunga-kiri-bawah-pembungkus{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+.bunga2 {
+    position: relative;
+    display: block;
+    bottom: 10px;
+    left: -50px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform-origin: bottom right;
+    z-index: 2;
+}
+
+/* Motif sarung sabbe belakang */
+.motif-kiri {
+    position: absolute;
+    left: -13px; 
+    top: 50%;
+    transform: translateY(-50%);
+    animation: motifNaikTurun 6s ease-in-out infinite;
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+}
+.motif-kiri2 {
+    position: absolute;
+    left: 120px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    animation: motifTurunNaik 6s ease-in-out infinite;
+}
+.motif-kiri3 {
+    position: absolute;
+    right: 120px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    animation: motifTurunNaik 6s ease-in-out infinite;
+}
+.motif-kiri4 {
+    position: absolute;
+    right: -13px; 
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+    pointer-events: none;
+    animation: motifNaikTurun 6s ease-in-out infinite;
+}
+
+/* Bingkai putih halaman 2 */
+.bingkai-hal2 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 450px;
+    height: 90%;
+    object-fit: fill;
+    z-index: 2;          
+    pointer-events: none;
+    opacity: 0.9 !important;
+}
+
+/* Isi konten di Dalam Bingkai */
+.songkok-bando {
+    position: absolute;
+    top: 14%; 
+    justify-content: center;
+    transform: translateX(-50%);
+    width: 18%;
+    height: auto;
+    object-fit: contain;
+    z-index: 5;
+    pointer-events: none;
+}
+.konten-teks-hal2 {
+    position: relative;
+    z-index: 10; 
+    text-align: center;
+    padding: 1rem 2rem;
+    width: 100%;
+    max-width: 350px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fafafa;
+}
+.ayat {
+    border-radius: 1rem;
+    text-align: center;
+    font-family: "work sans", sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #270000;
+    margin-bottom: 0.5rem;
+}
+.ayat1 {
+    font-family: "work sans", sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #270000;
+    margin: 0;
+}
+.bunga {
+    position: absolute;
+    bottom: 15%; 
+    justify-content: center;
+    transform: translateX(-50%);
+    width: 20%;
+    height: auto;
+    object-fit: contain;
+    z-index: 5; 
+    pointer-events: none;
+}
+
+
+/*//! ============================== */
+            /*//! HALAMAN 3 */
+/*//! ============================== */
+.halaman-3 {
+    margin: 0;
+    min-height: 1600px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Isi konten di dalam kapsul */
+.kapsul-dasar {
+    position: absolute;
+    width: 110%;
+    max-width: 200%;
+    height: 100%;
+    border-radius: 0 0 0 0;
+    z-index: 5;
+    opacity: 0.8 !important;
+}
+
+.konten-kapsul {
+    position: relative;
+    top: -1rem; /* Ubah dari -1.5rem ke 0 agar posisi awal tidak bergeser aneh */
+    z-index: 10;
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 1450px; 
+    box-sizing: border-box;
+    padding-top: 0; 
+    padding-bottom: 0;
+    margin: 0 auto;
+    gap: 0.5rem; /* Jarak antar elemen di dalam kapsul */
+}
+.bride {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+}
+.groom {
+    font-family: "Imperial Script", cursive;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 3.5rem;
+    color: #591818;
+}
+.kontainer-kalimat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    width: 100%;
+    padding: 1rem 1rem;
+    box-sizing: border-box;
+    margin-top: 0 !important; 
+}
+
+/* Container pembungkus foto & bunga */
+.container-bingkai-bunga-pria {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1rem;
+}
+
+/* Style dasar bunga di belakang foto */
+.bunga-bg-mempelai {
+    position: absolute;
+    width: 110%;
+    height: auto;
+    pointer-events: none;
+}
+.bunga-pria {
+    top: 30px;
+    left: 9px;
+    width: 38%;
+    transform: rotate(-15deg);
+}
+.bunga-mawar-bingkai-pria {
+    top: -20px;
+    right: 20px;
+    width: 60%;
+    z-index: 4;
+}
+
+.container-bingkai-bunga-wanita {
+    position: relative;
+    display: flex;
+    bottom: 0rem;    
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 1rem;
+}
+.bunga-mawar-bingkai-wanita {
+    bottom: -20px;
+    left: 20px;
+    width: 60%;
+    z-index: 4;
+    transform: scaley(-1) scalex(-1) ;    
+}
+.bunga-wanita {
+    top: 60px;
+    right: 7px;
+    width: 38%;
+}
+/* Bingkai Foto Mempelai */
+.foto-mempelai {
+    position: relative;
+    z-index: 7;
+    width: 50%;
+    object-fit: cover;
+    margin: 0rem 0;
+    border-radius: 128px;  
+    background-color: #f4d4d4;
+    box-shadow: 0px 0px 8px 5px rgba(0, 0, 0, 0.162);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.foto-mempelai:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.523);
+}
+
+/* Warna Teks */
+.kata-1 {
+    font-family: "work sans", sans-serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    position: relative;
+    padding: 0 1rem;
+    margin: 0 0 1rem 0;
+}
+.mempelai {
+    font-family: "Alex Brush", cursive;
+    color: #741302;
+    font-size: 60px;
+    font-weight: 400;
+    position: flex;
+    justify-content: center;
+    top: 30%;
+    
+}
+.dan {
+    font-family: "Alex Brush", cursive;
+    font-weight: 400;
+    font-size: 5rem;
+    color: #741302;
+    margin: 1rem 0rem;
+    padding: 1.5rem;
+}
+.mertua {
+    font-family: "Times New Roman", serif;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.3;
+    padding: 0 1rem;
+}
+
+h1.mertua {
+    font-family: "Times New Roman", serif;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem; /* SEBERAPA JAUH JARAK KE CHILD ORDER */
+    line-height: 1.3;
+    padding: 0 1rem;
+}
+
+
+/* Latar Belakang */
+.wrap-pohonkiri-1 {
+    position: absolute;
+    top: -4%;
+    left: -170px;
+    width: 90%;
+    z-index: 2;
+}
+.pohonkiri-1 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom left;
+    animation: anginPohon 5s ease-in-out infinite;
+}
+.wrap-pohonkiri-2 {
+    position: absolute;
+    top: 25%;
+    left: -190px;
+    width: 90%;
+    z-index: 4;
+}
+.pohonkiri-2 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom left;
+    animation: anginPohon 7s ease-in-out infinite;
+}
+.wrap-pohonkiri-3 {
+    position: absolute;
+    top: 50%;
+    left: -160px;
+    width: 80%;
+    z-index: 3;
+}
+.pohonkiri-3 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom left;
+    animation: anginPohon 9s ease-in-out infinite;
+}
+.wrap-pohonkanan-1 {
+    position: absolute;
+    top: -5%;
+    right: -150px;
+    width: 100%;
+    z-index: 2;
+}
+.pohonkanan-1 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom right;
+    animation: anginPohon 5s ease-in-out infinite;
+}
+.wrap-pohonkanan-2 {
+    position: absolute;
+    top: 15%;
+    right: -150px;
+    width: 80%;
+    z-index: 2;
+}
+.pohonkanan-2 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom right;
+    animation: anginPohon 7s ease-in-out infinite;
+}
+.wrap-pohonkanan-3 {
+    position: absolute;
+    top: 60%;
+    right: -150px;
+    width: 80%;
+    z-index: 4;
+}
+.pohonkanan-3 {
+    display: block;
+    width: 90%;
+    transform-origin: bottom right;
+    animation: anginPohon 9s ease-in-out infinite;
+}
+.bungakiri {
+    position: absolute;
+    bottom: -5%;
+    left: -6%;
+    width: 50%;
+    z-index: 4;
+    transform-origin: bottom left;
+    animation: masukKiri 1.4s ease-out forwards, ayunBunga 8s ease-in-out infinite 1.4s;
+}
+.bungatengah {
+    bottom: -6%;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    z-index: 4;
+    transform-origin: bottom center;
+    animation: ayunKiriKanan 9s ease-in-out infinite;
+}
+.bungakanan {
+    bottom: -4%;
+    right: -6%;
+    width: 50%;
+    position: absolute;
+    z-index: 4;
+    transform-origin: bottom right;
+    animation: masukKanan 1.4s ease-out forwards, ayunBunga 10s ease-in-out infinite 1.4s;
+}
+.awan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: auto;
+    object-fit: cover;
+    z-index: 1; /* Di atas dasar, di bawah teks */
+    pointer-events: none;
+}
+.gunungbawah {
+    position: absolute;
+    bottom: 300px;
+    left: 0;
+    width: 120%;
+    height: auto;
+    object-fit: cover;
+    z-index: 0; /* Di atas dasar, di bawah teks */
+    pointer-events: none;
+}
+.bunga-animasi {
+    animation: mekar 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+}
+.pohonbelakang {
+    position: absolute;
+    bottom: 260px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    max-width: 600px;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+.rumah {
+    position: absolute;
+    bottom: 130px;
+    left: 53%;
+    transform: translateX(-50%);
+    width: 530px;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+.airterjun {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 115%;
+    height: auto;
+    z-index: 3;
+    pointer-events: none;
+}
+
+
+
+/*//! ============================== */
+            /*//! HALAMAN 4 */
+/*//! ============================== */
+.halaman-4 {
+    position: relative;
+    margin: 0;
+    min-height: auto;   
+    z-index: 2;
+    display: flex;
+    background-color: rgba(255, 253, 253, 0.087);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    gap: 3rem; 
+    padding: 6rem 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden; /* Memastikan efek blur tidak meluber keluar */
+}
+
+/* Wadah pembungkus tiap kapsul */
+.kapsul-pembungkus-jadwal {
+    position: relative;
+    width: 100%;
+    max-width: 95%;
+    background-color: rgba(255, 255, 255, 0.957); /* Latar putih kapsul pindah langsung ke sini */
+    border-radius: 180px; /* Bentuk kapsul melengkung atas-bawah */
+    outline: 5px solid #690b0b;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+}
+
+
+.konten-kapsul2 {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    padding: 6rem 1.5rem; /* Padding atas dan bawah kapsul */
+    gap: 5rem; /* Jarak yang luas antara Akad, Resepsi, dan Countdown */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.kapsul-pembungkus-jadwal.kapsul-kotak {
+    border-radius: 24px !important; 
+    min-height: 280px;
+}
+
+.kapsul-pembungkus-jadwal.kapsul-kotak .konten-kapsul2 {
+    padding: 2rem 1.5rem !important; /* Menyesuaikan jarak padding atas-bawah dan kiri-kanan khusus untuk kotak */
+    justify-content: center;
+}
+
+.judul-jadwal {
+    font-family: "Great Vibes", cursive; /* Menggunakan font kaligrafi klasik yang sesuai */
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #591818;
+    letter-spacing: 0rem;
+    margin-bottom: 0.3rem;
+}
+
+.tanggal {
+    font-family: "Work Sans", sans-serif;
+    font-size: 1.05rem;
+    color: #050505;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+
+.frame-pembatas {
+    margin: 0.5rem 0; /* Mengatur jarak atas dan bawah dari garis pembatas */
+    padding: 0;
+}
+
+.img-pembatas {
+    width: 80%; /* Mengatur lebar gambar agar pas dan menyisakan ruang di kiri-kanan */
+    max-width: 100%; /* Batas maksimal panjang garis pembatas agar tidak terlalu memanjang di layar besar */
+    height: auto; /* Menjaga proporsi gambar tidak gepeng */
+    border: none; /* Memastikan tidak ada garis kotak tambahan */
+    opacity: 0.8; /* (Opsional) Membuat warnanya sedikit lebih lembut menyatu dengan background */
+    filter: brightness(0) saturate(100%) invert(59%) sepia(1%) saturate(5153%) hue-rotate(322deg) brightness(92%) contrast(90%);
+}
+
+.nama-lokasi {
+    font-family: "Work Sans", sans-serif;
+    font-weight: 600; 
+    font-size: 1.05rem;
+    color: #080808;
+    margin-bottom: 0.2rem;
+    margin-top: 0.2rem;
+}
+
+.alamat-lokasi {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.9rem;
+    color: #100f0f;
+    margin-bottom: 0; /* Ubah kembali ke 0 agar tombol Maps menempel kembali */
+    line-height: 1.4; 
+}
+
+/* CSS untuk Tombol Maps (Gaya Putih Kapsul) */
+.btn-maps-simpel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.6rem 2rem; /* Jarak padding agar tombol terlihat memanjang seperti contoh */
+    background-color: #ffffff; /* Warna latar putih */
+    color: #1a1a1a; /* Warna teks hitam/abu gelap */
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: 1px solid #eaeaea; /* Border sangat tipis dan halus */
+    border-radius: 50px; /* Membuat bentuk kapsul sempurna */
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Efek bayangan lembut di belakang tombol */
+    transition: all 0.3s ease;
+}
+
+/* Efek saat tombol disentuh (Hover) */
+.btn-maps-simpel:hover {
+    transform: translateY(-3px); /* Tombol sedikit terangkat */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Bayangan menjadi lebih tebal */
+    background-color: #fafafa;
+    color: #1a1a1a;
+}   
+.waktu {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.9rem;
+    color: #646161;
+    margin-bottom: 0;
+}
+
+.btn-grup .btn {
+    border-radius: 8px;
+    padding: 0.45rem 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(168, 126, 126, 0.08);
+}
+
+.btn-rsvp {
+    background: #a87e7e;
+    color: white;
+    border: none;
+}
+
+.btn-rsvp:hover {
+    background: #8f6767;
+}
+
+.maps-link {
+    display: inline-block;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(207, 150, 115, 0.12), rgba(168, 126, 126, 0.06));
+    text-decoration: none;
+    color: #4a4a4a;
+    border: 1px solid rgba(6, 6, 6, 0.865);
+}
+
+.rsvp-area p {
+    margin: 0.3rem 0;
+    color: #4a4a4a;
+}
+
+.rsvp-area .btn {
+    min-width: 80px;
+}
+
+
+
+/* //! HALAMAN 6 (GALERI FOTO MODERN) */
+.halaman-6 {
+    position: relative;
+    margin: 0;
+    z-index: 1;
+    background-image: linear-gradient(180deg, rgba(246, 243, 243, 0.900), rgba(74, 7, 7, 0.900));
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0.5rem 4rem 0.5rem;   /* tinggi tidak lagi dikunci */
+}
+
+.halaman-6 .judul {
+    position: static;                    /* ikut alur, tidak melayang */
+    margin-bottom: 1rem;
+}
+.judul-galeri {
+    font-family: "Great Vibes", cursive;
+    font-size: 3.5rem;
+    color: #771515;
+    margin-bottom: 0.1rem;
+    z-index: 3;
+}
+.subjudul-galeri {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #0c0c0c;
+    margin-bottom: 1.5rem; /* Didekatkan sedikit jaraknya ke grid foto */
+}
+
+.konten-galeri-baru {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;                          /* padding bawah sudah ada di .halaman-6 */
+}
+
+.galeri-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 100%;
+}
+
+.galeri-item img {
+    width: 100%;
+    aspect-ratio: 4 / 6;                 /* ganti 3 / 4 supaya lebih pendek */
+    object-fit: cover;
+    object-position: bottom;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* =========================================
+   STYLING MODAL ZOOM FOTO GALERI
+   ========================================= */
+.modal-backdrop.show {
+    backdrop-filter: blur(8px); /* Efek blur estetik di belakang popup foto */
+    background-color: rgba(0, 0, 0, 0.85); /* Latar belakang gelap transparan */
+}
+
+#modalImage {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    transform-origin: center;
+    touch-action: none;
+    user-select: none;
+    cursor: zoom-in;
+    transition: transform 0.12s ease-out, opacity 0.3s ease;
+    opacity: 1;
+}
+
+#imageModal .modal-body {
+    overflow: hidden;
+    touch-action: none;
+}
+
+.kontrol-zoom .btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0.35rem 0.65rem;
+}
+
+/* Kelas bantu untuk efek animasi ganti foto */
+#modalImage.ganti-slide {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* Desain Tombol Navigasi Modal agar Lebih Elegan */
+#imageModal .btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.2s ease;
+}
+
+#imageModal .btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+#imageModal .btn:active {
+    transform: scale(0.95);
+}
+
+
+
+
+/*//! ============================== */
+            /*//! HALAMAN 5 (REKENING) */
+/*//! ============================== */
+.halaman-5 {
+    margin: 0;
+    height: 100%;
+    min-height: 650px; /* Atau gunakan height: 700px; */
+    max-height: 650px; /* Batas maksimal tinggi halaman */
+    background-color: rgb(118, 9, 9);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3rem 1rem;
+    overflow: hidden;
+}
+
+.Hal5 {
+    position: relative;
+    margin-top: 4%;
+    width: 100%;
+    max-width: 365px;
+    box-sizing: border-box;
+    z-index: 10;
+    text-align: center;
+    
+}
+.hal-5 {
+    font-family: "Imperial Script", cursive;
+    font-weight: 590;
+    font-style: normal;
+    font-size: 3.5rem;
+    color: #501111;
+}
+/* Bingkai putih halaman 2 */
+.bingkai-hal5 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    object-fit: fill;
+    z-index: 2;          
+    pointer-events: none;
+    top: 0.5rem;
+}
+
+.container-rekening {
+    position: relative;
+    margin-top: 10%;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    bottom: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    gap: 10px;
+    z-index: 10;
+
+}
+.bagian-atas {
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%; 
+    z-index: 10;
+    border-radius: 8px;
+    align-self: center;
+}
+.rekening1 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.card-rekening {
+    position: absolute;
+    display: grid;
+    top: 35%;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+    width: 100%;
+    height: 65%;
+}
+.norek {
+    position: relative;
+    text-align: left;
+    color: var(--warna-putih);
+
+}
+.norek p {
+    position: relative;
+    font-size: 80%; /* Ukuran label "Nomor Rekening" */
+    margin: 0;
+    line-height: 1.2;
+    left: 15%; 
+}
+.norek h3 {
+    position: relative;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.2;
+    left: 15%;
+}
+.nama-norek {
+    position: relative;
+    grid-row-start: 2;
+    line-height: 1.2;
+    text-align: left;
+    color: var(--warna-putih);
+}
+
+.nama-norek p {
+    position: relative;
+    left: 15%;    
+    font-size: 1rem; 
+    bottom: 0.5rem;
+}
+.nama-norek p1 {
+    position: relative;
+    left: 15%;    
+    font-size: 1rem; 
+    bottom: 1.5rem;
+}
+.salin {
+    position: relative;
+    grid-row: 2;
+    grid-column: 2; 
+    display: flex;
+    align-items: flex-end;   
+    right: 15%;
+    justify-content: flex-end; 
+}
+.btn-salin {
+    position: relative;
+    background-color: #806d6d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15%;
+    right: 1%;
+}
+
+.btn-salin:hover {
+    opacity: 0.9;
+}
+.bagian-bawah {
+    position: relative;
+    display: flex;
+    width: 85%; /* Samakan menjadi 100% agar ukurannya sejajar dengan bagian atas */
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+.rekening2 {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* //! HALAMAN 6 (UCAPAN) */
+.halaman-interaksi {
+    position: relative;
+    margin: 0;
+    min-height: auto; 
+    background-image: linear-gradient(180deg, rgb(100, 10, 10), rgb(104, 9, 9));
+    display: flex;
+    padding: 1rem 1rem 1rem 1rem; /* Atur jarak atas dan bawah sesuai kebutuhan */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+/* Styling untuk Kapsul Pembungkus Utama */
+.kapsul-pembungkus-interaksi {
+    margin: 0;
+    background: rgba(255, 255, 255, 0.799);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Judul Utama */
+.judul-utama-interaksi {
+    font-family: 'Great Vibes', cursive;
+    color: #a53521;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+/* Garis Pemisah */
+.garis-pemisah {
+    border-top: 1px dashed #ccc;
+    margin: 1.5rem 0;
+}
+
+.garis-pemisah-2 {
+    border-top: 1px dashed #ccc;
+    margin: 2rem 0 1.5rem 0;
+}
+
+/* Kustomisasi Kotak Input & Select */
+.input-custom, .select-custom, .textarea-custom {
+    border-radius: 10px !important;
+}
+
+/* Tombol Kirim */
+.btn-kirim-custom {
+    background-color: #862121 !important;
+    color: white !important;
+    border-radius: 50px !important;
+    padding: 0.7rem !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.btn-kirim-custom:hover {
+    background-color: #501111 !important;
+}
+
+/* Judul Daftar Ucapan Tamu Lain */
+.judul-daftar-ucapan {
+    font-family: 'Great Vibes', cursive;
+    color: #a53521;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Area Kotak Scroll Daftar Ucapan */
+.wadah-scroll-ucapan {
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 5px;
+}
+
+/*//! ============================== */
+            /*//! CLOSING */
+/*//! ============================== */
+.closing-cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;               /* tinggi layar HP yang sebenarnya */
+    aspect-ratio: 4 / 6;          /* lebih pendek: 1 / 1 atau 5 / 4 */
+    max-height: 100vh;
+    max-height: 100svh;            /* tinggi layar HP yang sebenarnya */
+    overflow: hidden;
+}
+
+.closing-cover img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;            /* foto menutup kotak tanpa gepeng */
+    object-position: center 30%;  /* geser titik fokus agar wajah tidak terpotong */
+    display: block;
+}
+
+.closing-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        /* gradasi tipis di atas */
+        linear-gradient(to bottom,
+            rgb(100, 10, 10) 0%,
+            rgba(83, 2, 2, 0) 25%),
+        /* gradasi di bawah untuk teks */
+        linear-gradient(to top,
+            rgba(50, 1, 1, 0.7) 0%,
+            rgba(0, 0, 0, 0.35) 45%,
+            rgba(0, 0, 0, 0) 75%);
+    pointer-events: none;
+}
+
+.closing-teks {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;                   /* di atas gradasi */
+    padding: 0 8% 9%;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.closing-teks > * { margin: 0; }
+
+.closing-salam {
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.closing-nama {
+    font-family: "Imperial Script", cursive;
+    margin: 0.3em 0 0.5em;
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+    line-height: 1.1;
+}
+
+.closing-doa {
+    font-size: clamp(0.8rem, 3.4vw, 0.95rem);
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* //*Music */
+/* Tombol melayang di pojok kanan bawah */
+.music-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 56px;
+    height: 56px;
+    background: transparent;
+    border: 0;
+    opacity: 0;
+    visibility: hidden;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.music-btn.terlihat {
+    opacity: 1;
+    visibility: visible;
+}
+
+.music-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+    border-radius: 50%;
+}
+
+.music-icon {
+    display: block;
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+/* Animasi Berputar */
+.music-btn.diputar .music-icon {
+    animation: putarKaset 6s linear infinite;
+}
+
+@keyframes putarKaset {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+
+/* //*COPYRIGHT */
+.py-3 {
+    background-color: #430a0a;
+    color: #f8f6f6;
+}
+
+
+
+/* //! ANIMASI SCROLL */
+.animasi-scroll {
+    opacity: 0;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animasi-bawah {
+    transform: translateY(-50px);
+}
+
+.animasi-kiri {
+    transform: translateX(-50px);
+}
+
+.animasi-kanan {
+    transform: translateX(50px);
+}
+
+.animasi-zoom {
+    transform: scale(0.85);
+}
+
+.animasi-atas {
+    transform: translateY(50px);
+}
+
+.animasi-scroll.muncul {
+    opacity: 1;
+    transform: none;
+}
+
+/* //! ANIMASI MEKAR */
+.bunga-mekar {
+    opacity: 0;
+    transform: scale(0.15) translateY(30px) rotate(-10deg);
+    transition: 
+        transform 2.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+        opacity 1s ease-out;
+    transform-origin: center; 
+    will-change: transform, opacity; /* Optimalisasi performa rendering */
+    display: inline-block;
+}
+
+.bunga-mekar.aktif {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+}
+
+@keyframes fade-atas {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ayunBunga {
+0%, 100% {
+        transform: rotate(-3deg) translateX(-10px);
+        animation-timing-function: ease-in-out;
+    }
+    50% {
+        transform: rotate(3deg) translateX(10px);
+        animation-timing-function: ease-in-out;
+    }
+}
+
+@keyframes ayunKiriKanan {
+0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-15px) rotate(-4deg);
+    }
+    50% {
+        transform: translateX(0) rotate(0deg);
+    }
+    75% {
+        transform: translateX(15px) rotate(4deg);
+    }
+}
+
+@keyframes anginPohon {
+    0% {
+        transform: rotate(0deg) skewX(0deg);
+    }
+
+    30% {
+        transform: rotate(-1.5deg) skewX(-1deg);
+    }
+
+    35% {
+        transform: rotate(-1.2deg) skewX(-0.8deg);
+    }
+
+    40% {
+        transform: rotate(-1.6deg) skewX(-1.2deg);
+    }
+
+    65% {
+        transform: rotate(2deg) skewX(1.5deg);
+    }
+
+    80% {
+        transform: rotate(1.8deg) skewX(1deg);
+    }
+
+    100% {
+        transform: rotate(0deg) skewX(0deg);
+    }
+}
+
+@keyframes kipasMelayang {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-4px) rotate(1.5deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes masukKiri {
+    0% {
+        transform: translateX(-150px) scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes masukKanan {
+    0% {
+        transform: translateX(150px) scale(0.9);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes masukBawah {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes mekar {
+    0% {
+        transform: scale(0.2); /* Mulai dari ukuran sangat kecil */
+        opacity: 0;            /* Mulai dari transparan (tidak terlihat) */
+    }
+    100% {
+        transform: scale(1);   /* Kembali ke ukuran normal */
+        opacity: 1;            /* Sepenuhnya terlihat */
+    }
+}
+
+
+/* Animasi naik turun untuk motif sarung */
+@keyframes motifNaikTurun {
+    0%, 100% {
+        transform: translateY(calc(-50% - 6px));
+    }
+
+    50% {
+        transform: translateY(calc(-50% + 6px));
+    }
+}
+@keyframes motifTurunNaik {
+    0%, 100% {
+        transform: translateY(calc(-50% + 6px));
+    }
+
+    50% {
+        transform: translateY(calc(-50% - 6px));
+    }
+}
+/* =========================================
+   ANIMASI KAPSUL: FADE IN + ZOOM DARI BAWAH
+   ========================================= */
+
+/* Atur kondisi awal sebelum kapsul terlihat di layar */
+.kapsul-pembungkus-jadwal.animasi-scroll {
+    opacity: 0;
+    transform: translateY(60px) scale(0.9); /* Mulai dari posisi agak ke bawah dan ukuran 90% */
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Kondisi saat kapsul terscroll dan class .muncul ditambahkan oleh JS */
+.kapsul-pembungkus-jadwal.animasi-scroll.muncul {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* Kembali ke posisi normal dan ukuran penuh */
+}
+
+
+/* //! UKURAN HP */
+@media (max-width: 450px) {
+    .split-container {
+        width: 100%;
+    }
+
+    .left-side {
+        display: none;
+    }
+
+    .right-side {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    .welcome-cover {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    .halaman-2{
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }    
+}
+
+/* Tampilan Default (Layar Lebar) */
+.container {
+    display: flex;
+}
+
+.bagian-kiri {
+    width: 40%;
+}
+
+.bagian-kanan {
+    width: 60%;
+}
+
+/* Tampilan HP / Layar di bawah 650px */
+@media (max-width: 768px) {
+    .left-side {
+        display: none; /* Sembunyikan bagian kiri */
+    }
+
+    .welcome-cover {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    .halaman-rekening .nama-norek {
+        text-align: left;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center; /* Memosisikan container ke tengah */
+        align-items: center;
+        width: 100%;
+    }
+
+    .right-side {
+        width: 100%;
+        max-width: 450px;   /* Opsional: membatasi lebar agar tetap rapi */
+        margin: 0 auto;     /* Memaksa elemen berada tepat di tengah */
+        text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
+    }
+}
