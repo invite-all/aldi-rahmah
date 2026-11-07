@@ -1310,22 +1310,21 @@ h1.mertua {
 }
 .nama-norek {
     position: relative;
-    left: 15%;
     grid-row-start: 2;
     line-height: 1.2;
-    align-content: end;
+    text-align: left;
     color: var(--warna-putih);
 }
 
 .nama-norek p {
     position: relative;
-    left: 1%;    
+    left: 15%;    
     font-size: 1rem; 
     bottom: 0.5rem;
 }
 .nama-norek p1 {
     position: relative;
-    left: 1%;    
+    left: 15%;    
     font-size: 1rem; 
     bottom: 1.5rem;
 }
@@ -1852,9 +1851,13 @@ h1.mertua {
 }
 
 /* Tampilan HP / Layar di bawah 650px */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
     .left-side {
         display: none; /* Sembunyikan bagian kiri */
+    }
+
+    .halaman-rekening .nama-norek {
+        text-align: left;
     }
 
     .container {
