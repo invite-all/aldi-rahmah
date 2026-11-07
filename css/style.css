@@ -27,7 +27,7 @@ body {
 /*//! BAGIAN KIRI (Area Statis / Dekoratif) */
 .left-side {
     flex: 1;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/img/asset/sampulkiri.webp');
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/asset/sampulkiri.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -125,7 +125,7 @@ body {
     max-width: 450px;
     height: 100vh;
     height: 100dvh;
-    background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.183)), url(/img/asset/cover.webp);
+    background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.183)), url(../img/asset/cover.webp);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
