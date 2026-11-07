@@ -4,6 +4,7 @@ body {
     margin: 0;
     overflow-x: hidden; /* Mencegah geseran horizontal */
     scroll-behavior: smooth;
+    background-color: #350202; /* Warna latar belakang default */
 }
 :root {
     --warna-merah: #4e0707;
@@ -27,6 +28,8 @@ body {
 /*//! BAGIAN KIRI (Area Statis / Dekoratif) */
 .left-side {
     flex: 1;
+    position: relative;
+    container-type: inline-size;
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../img/asset/sampulkiri.webp');
     background-size: cover;
     background-position: center;
@@ -43,36 +46,23 @@ body {
     position: absolute;
     bottom: 2rem;
     left: 2rem;
+    max-width: calc(100% - 4rem);     /* baru: teks tidak keluar dari kolom */
 }
 
-.hero1 {
-    position: relative;
+.hero1 { 
+    font-size: clamp(1.1rem,  6.4cqw, 2rem);   
     font-family: "Times New Roman", serif;
-    font-size: 2rem;
-    color: #f7f5f5;
-    z-index: 1;
-    margin: 0 0 0.5rem 0; /* Atur jarak ke teks hero2 di bawahnya (0.5rem) */
-    line-height: 1.2;     /* Mengatur tinggi baris agar lebih presisi */
+    color:#f7f5f5; 
 }
-
-.hero2 {
-    position: relative;
+.hero2 { 
+    font-size: clamp(2.2rem,  16cqw,  5rem);
     font-family: "Great Vibes", cursive;
-    font-size: 5rem;
-    color: #f4f3f3;
-    z-index: 1;
-    margin: 1rem 0 0.5rem 0;
-    line-height: 1;
+    color:#f4f3f3; 
 }
-
-.hero3 {
-    position: relative;
+.hero3 { 
+    font-size: clamp(0.85rem, 3.5cqw, 1.1rem);
     font-family: "Times New Roman", serif;
-    font-size: 1.1rem;
-    color: #f4f3f3;
-    z-index: 1;
-    margin: 0;            /* Menghapus margin bawah bawaan tag <p> */
-    line-height: 1.2;
+    color: #f4f3f3; 
 }
 
 /*//! BAGIAN KANAN (Viewport Khusus / Mobile Ratio) */
@@ -94,7 +84,7 @@ body {
 }
 
 .right-side::-webkit-scrollbar-track {
-    background: transparent;
+    background-color: #350202db;
 }
 
 .right-side::-webkit-scrollbar-thumb {
@@ -975,7 +965,7 @@ h1.mertua {
 
 .judul-jadwal {
     font-family: "Great Vibes", cursive; /* Menggunakan font kaligrafi klasik yang sesuai */
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 500;
     color: #591818;
     letter-spacing: 0rem;
@@ -1214,7 +1204,7 @@ h1.mertua {
 .halaman-5 {
     margin: 0;
     height: 100%;
-    min-height: 500px; /* Atau gunakan height: 700px; */
+    min-height: 650px; /* Atau gunakan height: 700px; */
     max-height: 650px; /* Batas maksimal tinggi halaman */
     background-color: rgb(118, 9, 9);
     position: relative;
@@ -1846,4 +1836,38 @@ h1.mertua {
         right: 0;
         margin: 0 auto;
     }    
+}
+
+/* Tampilan Default (Layar Lebar) */
+.container {
+    display: flex;
+}
+
+.bagian-kiri {
+    width: 40%;
+}
+
+.bagian-kanan {
+    width: 60%;
+}
+
+/* Tampilan HP / Layar di bawah 650px */
+@media (max-width: 650px) {
+    .left-side {
+        display: none; /* Sembunyikan bagian kiri */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center; /* Memosisikan container ke tengah */
+        align-items: center;
+        width: 100%;
+    }
+
+    .right-side {
+        width: 100%;
+        max-width: 450px;   /* Opsional: membatasi lebar agar tetap rapi */
+        margin: 0 auto;     /* Memaksa elemen berada tepat di tengah */
+        text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
+    }
 }
