@@ -1818,7 +1818,7 @@ h1.mertua {
     .split-container {
         width: 100%;
     }
-
+    
     .left-side {
         display: none;
     }
@@ -1843,6 +1843,25 @@ h1.mertua {
         right: 0;
         margin: 0 auto;
     }    
+
+    
+    .pohonkiri1,
+    .pohonkiri2,
+    .pohonkanan1,
+    .pohonkanan2,
+    .bungakanan,
+    .pohon-kiri-atas,
+    .pohon-kanan-bawah,
+    .pohonkiri-1,
+    .pohonkiri-2,
+    .pohonkiri-3,
+    .pohonkanan-1,
+    .pohonkanan-2,
+    .pohonkanan-3,
+    .bungakiri {
+        animation: none;
+    }
+
 }
 
 /* Tampilan Default (Layar Lebar) */
@@ -1888,3 +1907,4 @@ h1.mertua {
         text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
     }
 }
+
