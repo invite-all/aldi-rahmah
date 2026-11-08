@@ -82,7 +82,7 @@ body {
     height: 100vh;
     overflow-y: hidden;
     position: relative;
-    /* background: url('../img/asset/prewed.webp'); */
+    background: url('../img/asset/prewed.webp');
     background-size: cover;
     background-position: center;
     box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
