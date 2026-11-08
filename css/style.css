@@ -5,6 +5,7 @@ body {
     overflow-x: hidden; /* Mencegah geseran horizontal */
     scroll-behavior: smooth;
     background-color: #350202; /* Warna latar belakang default */
+    contain: paint;     /* Mencegah rendering di luar batas kotak saat zoom out */
 }
 :root {
     --warna-merah: #4e0707;
@@ -67,6 +68,7 @@ body {
 
 /*//! BAGIAN KANAN (Viewport Khusus / Mobile Ratio) */
 .right-side {
+    overflow: hidden;
     width: 450px;
     min-width: 450px;
     flex-shrink: 2; 
@@ -77,6 +79,7 @@ body {
     background-size: cover;
     background-position: center;
     box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
+    contain: paint; /* Mencegah rendering di luar batas kotak saat zoom out */
 }
 
 .right-side::-webkit-scrollbar {
