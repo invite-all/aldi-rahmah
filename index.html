@@ -27,6 +27,9 @@
     if (q.has("nobg"))      css += "*,*::before,*::after{background-image:none!important}";
     if (q.has("noeffects")) css += "*,*::before,*::after{box-shadow:none!important;filter:none!important;backdrop-filter:none!important;text-shadow:none!important}";
     if (q.has("docscroll")) css += "html,body{height:auto!important;overflow:auto!important}.right-side{height:auto!important;overflow:visible!important;min-width:0!important;width:100%!important}";
+    if (q.has("a")) css += ".right-side{min-width:0!important;width:100%!important}";
+    if (q.has("b")) css += ".right-side{height:auto!important;overflow:visible!important}";
+    if (q.has("c")) css += "html,body{height:auto!important;overflow:auto!important}";    
     document.getElementById("uji").textContent = css;
     })();
     </script>
