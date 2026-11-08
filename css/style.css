@@ -1932,9 +1932,17 @@ h1.mertua {
 
 /* Tampilan HP / Layar di bawah 650px */
 @media (max-width: 768px) {
-    .left-side {
-        display: none; /* Sembunyikan bagian kiri */
+    html, body { height: auto !important; overflow: auto !important; }
+    .left-side { display: none; }
+    .right-side {
+        height: auto !important;
+        overflow: visible !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 450px;
+        margin: 0 auto;
     }
+
 
     .welcome-cover {
         left: 0;
@@ -1953,10 +1961,4 @@ h1.mertua {
         width: 100%;
     }
 
-    .right-side {
-        width: 100%;
-        max-width: 450px;   /* Opsional: membatasi lebar agar tetap rapi */
-        margin: 0 auto;     /* Memaksa elemen berada tepat di tengah */
-        text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
-    }
 }

@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Jeda video saat keluar layar dan ulangi saat terlihat kembali.
     const elemenAnimasi = document.querySelectorAll(".animasi-scroll");
     const opsi = {
-        root: rightSide,
+        root: null,
         rootMargin: "0px 0px -80px 0px",
         threshold: 0.15
     };
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }, {
-            root: rightSide,
+            root: null,
             threshold: 0.1
         });
 
