@@ -82,19 +82,18 @@ body {
     height: 100vh;
     overflow-y: hidden;
     position: relative;
-    background-size: cover;
-    background-position: center;
+    isolation: isolate;
     box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
-
 }
 
-.bg-kanan {
+.right-side::before {
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
+    inset: 0 0 0 auto;
+    width: 450px;
+    z-index: -1;
+    background: url('../img/asset/prewed.webp') center / cover no-repeat;
+    pointer-events: none;
 }
 
 .right-side::-webkit-scrollbar {
@@ -1951,12 +1950,20 @@ h1.mertua {
         margin: 0 auto;
     }
 
+    .right-side::before {
+        left: 50%;
+        right: auto;
+        width: min(450px, 100vw);
+        transform: translateX(-50%);
+    }
+
 
     .welcome-cover {
         left: 0;
         right: 0;
         margin: 0 auto;
     }
+    
 
     .halaman-rekening .nama-norek {
         text-align: left;
