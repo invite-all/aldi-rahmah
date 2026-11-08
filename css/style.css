@@ -1941,6 +1941,7 @@ h1.mertua {
         width: 100% !important;
         max-width: 450px;
         margin: 0 auto;
+        background-size: cover;
     }
 
 
