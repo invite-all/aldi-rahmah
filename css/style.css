@@ -404,8 +404,10 @@ body {
     display: block;
     width: 100%;
     height: auto;
+    right: -5%;
     object-fit: contain;
-    transform-origin: bottom right;
+    transform-origin: bottom center;   /* diubah dari bottom right */
+    scale: -1 1;  
     z-index: 2;
     animation: anginPohon 9s ease-in-out infinite;
 }
@@ -420,12 +422,13 @@ body {
 .bunga1 {
     position: relative;
     display: block;
-    top: 20px;
-    right: -50px;
-    width: 100%;
+    top: 20%;
+    right: -40%;
+    width: 80%;
     height: auto;
     object-fit: contain;
-    transform-origin: bottom right;
+    transform-origin: bottom center;   /* diubah dari bottom right */
+    scale: -1 1;  
     z-index: 2;
 }
 .bunga-kiri-bawah-pembungkus{
@@ -439,12 +442,13 @@ body {
 .bunga2 {
     position: relative;
     display: block;
-    bottom: 10px;
-    left: -50px;
-    width: 100%;
+    bottom: 20%;
+    left: -30%;
+    width: 80%;
     height: auto;
     object-fit: contain;
-    transform-origin: bottom right;
+    transform-origin: center right;   /* diubah dari bottom right */
+    scale: 1 -1;   
     z-index: 2;
 }
 
@@ -471,6 +475,7 @@ body {
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
+    scale: -1 1;
     animation: motifTurunNaik 6s ease-in-out infinite;
 }
 .motif-kiri3 {
@@ -495,6 +500,7 @@ body {
     object-fit: contain;
     z-index: 1;
     pointer-events: none;
+    scale: -1 1;
     animation: motifNaikTurun 6s ease-in-out infinite;
 }
 
@@ -639,20 +645,20 @@ body {
 /* Style dasar bunga di belakang foto */
 .bunga-bg-mempelai {
     position: absolute;
-    width: 110%;
+    width: 100%;
     height: auto;
     pointer-events: none;
 }
 .bunga-pria {
-    top: 30px;
-    left: 9px;
-    width: 38%;
+    top: 0%;
+    left: 6%;
+    width: 30%;
     transform: rotate(-15deg);
 }
 .bunga-mawar-bingkai-pria {
-    top: -20px;
-    right: 20px;
-    width: 60%;
+    top: -8%;
+    right: 10%;
+    width: 40%;
     z-index: 4;
 }
 
@@ -665,16 +671,17 @@ body {
     padding: 1rem 1rem;
 }
 .bunga-mawar-bingkai-wanita {
-    bottom: -20px;
-    left: 20px;
-    width: 60%;
+    bottom: -8%;
+    left: 10%;
+    width: 40%;
     z-index: 4;
     transform: scaley(-1) scalex(-1) ;    
 }
 .bunga-wanita {
-    top: 60px;
-    right: 7px;
-    width: 38%;
+    bottom: 0%;
+    right: 6%;
+    width: 30%;
+    transform: scaley(-1) scalex(-1) ;    
 }
 /* Bingkai Foto Mempelai */
 .foto-mempelai {
@@ -775,14 +782,14 @@ h1.mertua {
 }
 .pohonkiri-3 {
     display: block;
-    width: 90%;
+    width: 85%;
     transform-origin: bottom left;
     animation: anginPohon 9s ease-in-out infinite;
 }
 .wrap-pohonkanan-1 {
     position: absolute;
     top: -5%;
-    right: -150px;
+    right: -60%;
     width: 100%;
     z-index: 2;
 }
@@ -811,6 +818,7 @@ h1.mertua {
     right: -150px;
     width: 80%;
     z-index: 4;
+    scale: -1 1;   
 }
 .pohonkanan-3 {
     display: block;
@@ -828,9 +836,9 @@ h1.mertua {
     animation: masukKiri 1.4s ease-out forwards, ayunBunga 8s ease-in-out infinite 1.4s;
 }
 .bungatengah {
-    bottom: -6%;
+    bottom: -0.5%;
     justify-content: center;
-    width: 100%;
+    width: 50%;
     position: absolute;
     z-index: 4;
     transform-origin: bottom center;
