@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Buka cover, mulai media, dan aktifkan scroll
+    // Buka cover, mulai media, dan aktifkan scroll.
     if (btnBuka) {
         btnBuka.addEventListener("click", function () {
             if (bgMusic) {
@@ -97,9 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Video pembuka gagal diputar:", error);
                 });
             }
-            
-            // PERBAIKAN: Hanya beri overflow-y auto di desktop agar tidak memicu crash di mobile/iOS
-            if (rightSide && window.innerWidth > 768) {
+            if (rightSide) {
                 rightSide.style.overflowY = "auto";
             }
         });
@@ -108,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Jeda video saat keluar layar dan ulangi saat terlihat kembali.
     const elemenAnimasi = document.querySelectorAll(".animasi-scroll");
     const opsi = {
-        root: null,
+        root: rightSide,
         rootMargin: "0px 0px -80px 0px",
         threshold: 0.15
     };
@@ -125,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }, {
-            root: null,
+            root: rightSide,
             threshold: 0.1
         });
 
@@ -235,13 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
         modalImage.addEventListener("pointerdown", function (event) {
             if (event.pointerType === "mouse" && event.button !== 0) return;
             event.preventDefault();
-            
-            try {
-                modalImage.setPointerCapture(event.pointerId);
-            } catch (err) {
-                // Abaikan jika pointer capture gagal di beberapa browser iOS lama
-            }
-            
+            modalImage.setPointerCapture(event.pointerId);
             zoomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
             if (zoomPointers.size === 1) {
@@ -472,49 +464,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//! FUNGSI SALIN NOREK (AMUNISI LENGKAP UNTUK ALL BROWSER)
+//! FUNGSI SALIN NOREK
 function salinRekening(idElemen, tombol) {
-    const noRekening = document.getElementById(idElemen).innerText.trim();
+    // 1. Ambil teks nomor rekening berdasarkan ID
+    const noRekening = document.getElementById(idElemen).innerText;
 
-    const suksesSalin = () => {
+    // 2. Salin teks ke clipboard HP/Komputer
+    navigator.clipboard.writeText(noRekening).then(() => {
+        // Simpan teks asli tombol
         const teksAsli = tombol.innerHTML;
+
+        // Ubah tampilan tombol sementara sebagai umpan balik
         tombol.innerHTML = "Disalin!";
-        tombol.style.backgroundColor = "#acacac";
+        tombol.style.backgroundColor = "#acacac"; // Warna hijau
         tombol.style.color = "#343333";
 
+        // Kembalikan tombol ke tampilan semula setelah 2 detik
         setTimeout(() => {
             tombol.innerHTML = teksAsli;
             tombol.style.backgroundColor = ""; 
             tombol.style.color = "";
-        }, 1500);
-    };
-
-    // 1. Coba gunakan Clipboard API modern
-    if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(noRekening)
-            .then(suksesSalin)
-            .catch(() => fallbackSalin(noRekening, suksesSalin));
-    } else {
-        // 2. Fallback untuk HTTP / Browser iOS lama / In-App Browser
-        fallbackSalin(noRekening, suksesSalin);
-    }
-}
-
-function fallbackSalin(teks, callback) {
-    const tempInput = document.createElement("textarea");
-    tempInput.value = teks;
-    tempInput.style.position = "fixed";
-    tempInput.style.left = "-9999px";
-    document.body.appendChild(tempInput);
-    tempInput.focus();
-    tempInput.select();
-
-    try {
-        document.execCommand("copy");
-        callback();
-    } catch (err) {
-        alert("Gagal menyalin nomor rekening, silakan salin secara manual.");
-    } finally {
-        document.body.removeChild(tempInput);
-    }
+        }, 500);
+    }).catch(err => {
+        console.error("Gagal menyalin teks: ", err);
+        alert("Gagal menyalin nomor rekening.");
+    });
 }

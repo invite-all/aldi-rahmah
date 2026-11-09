@@ -1,17 +1,11 @@
-html {
-    scroll-behavior: smooth;
-    overflow-x: hidden; /* Wajib ada di html agar Safari tidak membuat composited scroll layer di body */
-    width: 100%;
-}
-
+html,
 body {
-    width: 100%;
-    min-height: 100dvh; /* Menggunakan Dynamic Viewport Height */
-    height: auto;       /* Biarkan tinggi menyesuaikan panjang konten undangan */
+    height: 100%;
     margin: 0;
-    padding: 0;
     overflow-x: hidden; /* Mencegah geseran horizontal */
-    background-color: #350202;
+    scroll-behavior: smooth;
+    background-color: #350202; /* Warna latar belakang default */
+
 }
 :root {
     --warna-merah: #4e0707;
@@ -19,16 +13,16 @@ body {
 }
 
 .main-wrapper {
-    width: 100%;
-    min-height: 100dvh;
-    overflow: visible; /* Biarkan dokumen utama yang menangani scroll */
+    min-height: 100vh;
+    height: auto;
 }
 
 .split-container {
     display: flex;
-    width: 100%;
+    width: 100vw;
     min-height: 100vh;
     height: auto;
+    /* Pastikan kontainer utama menggunakan flex row di layar besar */
     flex-direction: row;
 }
 
@@ -74,24 +68,18 @@ body {
 
 /*//! BAGIAN KANAN (Viewport Khusus / Mobile Ratio) */
 .right-side {
+    overflow: hidden;
     width: 450px;
     min-width: 450px;
     flex-shrink: 2; 
-    min-height: 100vh;
-    height: auto; /* Biarkan mengikuti panjang konten di docscroll */
+    height: 100vh;
+    overflow-y: hidden;
     position: relative;
-    isolation: isolate;
+    background: url('../img/asset/prewed.webp');
+    background-size: cover;
+    background-position: center;
     box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
-}
 
-.right-side::before {
-    content: "";
-    position: fixed;
-    inset: 0 0 0 auto;
-    width: 450px;
-    z-index: -1;
-    background: url('../img/asset/prewed.webp') center / cover no-repeat;
-    pointer-events: none;
 }
 
 .right-side::-webkit-scrollbar {
@@ -258,6 +246,10 @@ body {
         /*//! HALAMAN 1 (COVER) */
 /*//! ============================== */
 .halaman-1 {
+    background-image: url('../img/asset/prewed.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     width: 100%;
     height: 100vh;
@@ -739,10 +731,11 @@ body {
     color: #741302;
     font-size: 60px;
     font-weight: 400;
-    display: flex; /* Menggantikan position: flex */
+    position: flex;
     justify-content: center;
+    top: 30%;
+    
 }
-
 .dan {
     font-family: "Alex Brush", cursive;
     font-weight: 400;
@@ -1898,7 +1891,7 @@ h1.mertua {
     }    
 
     
-    /* .pohonkiri1,
+    .pohonkiri1,
     .pohonkiri2,
     .pohonkanan1,
     .pohonkanan2,
@@ -1913,7 +1906,7 @@ h1.mertua {
     .pohonkanan-3,
     .bungakiri {
         animation: none;
-    } */
+    }
 
 }
 
@@ -1932,30 +1925,8 @@ h1.mertua {
 
 /* Tampilan HP / Layar di bawah 650px */
 @media (max-width: 768px) {
-    html, body { 
-        height: auto !important; 
-        overflow-x: hidden !important;
-        overflow-y: auto !important; 
-    }
-
-    .left-side { 
-        display: none; 
-    }
-
-    .right-side {
-        height: auto !important;
-        overflow: visible !important;
-        min-width: 0 !important;
-        width: 100% !important;
-        max-width: 450px;
-        margin: 0 auto;
-    }
-
-    /* Pastikan background pseudo-element menyesuaikan lebar layar HP */
-    .right-side::before {
-        width: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
+    .left-side {
+        display: none; /* Sembunyikan bagian kiri */
     }
 
     .welcome-cover {
@@ -1970,8 +1941,15 @@ h1.mertua {
 
     .container {
         display: flex;
-        justify-content: center;
+        justify-content: center; /* Memosisikan container ke tengah */
         align-items: center;
         width: 100%;
+    }
+
+    .right-side {
+        width: 100%;
+        max-width: 450px;   /* Opsional: membatasi lebar agar tetap rapi */
+        margin: 0 auto;     /* Memaksa elemen berada tepat di tengah */
+        text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
     }
 }
