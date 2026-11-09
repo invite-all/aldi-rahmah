@@ -1257,6 +1257,50 @@ h1.mertua {
 
 
 }
+.daftar-rekening {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.daftar-rekening[hidden],
+.btn-buka-rekening[hidden],
+.pesan-rekening[hidden] {
+    display: none !important;
+}
+
+.pesan-rekening {
+    font-family: "Work Sans", sans-serif;
+    font-size: 2rem;
+    font-style: italic;
+    max-width: 340px;
+    margin: 0;
+    color: #501111;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.btn-buka-rekening,
+.btn-tutup-rekening {
+    position: relative;
+    padding: 0.2rem 1rem;
+    border: 1px solid #806d6d;
+    border-radius: 8px;
+    background-color: #3f0404;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.btn-buka-rekening:hover,
+.btn-tutup-rekening:hover {
+    opacity: 0.9;
+}
+
 .bagian-atas {
     position: relative; 
     display: flex;
@@ -1270,7 +1314,7 @@ h1.mertua {
 .rekening1 {
     position: relative;
     display: flex;
-    width: 100%;
+    width: 95%;
     justify-content: center;
     align-items: center;
 }

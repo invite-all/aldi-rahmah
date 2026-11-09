@@ -34,6 +34,41 @@ document.addEventListener("DOMContentLoaded", function () {
         elemen.href = nilai;
     });
 
+    const btnBukaRekening = document.getElementById("btnBukaRekening");
+    const btnTutupRekening = document.getElementById("btnTutupRekening");
+    const daftarRekening = document.getElementById("daftarRekening");
+    const pesanRekening = document.getElementById("pesanRekening");
+
+    if (btnBukaRekening && daftarRekening) {
+        btnBukaRekening.addEventListener("click", function () {
+            daftarRekening.hidden = false;
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    daftarRekening.classList.add("muncul");
+                });
+            });
+            btnBukaRekening.setAttribute("aria-expanded", "true");
+            btnBukaRekening.hidden = true;
+            if (pesanRekening) {
+                pesanRekening.hidden = true;
+            }
+            daftarRekening.querySelector(".btn-salin").focus();
+        });
+    }
+
+    if (btnTutupRekening && btnBukaRekening && daftarRekening) {
+        btnTutupRekening.addEventListener("click", function () {
+            daftarRekening.classList.remove("muncul");
+            daftarRekening.hidden = true;
+            btnBukaRekening.setAttribute("aria-expanded", "false");
+            btnBukaRekening.hidden = false;
+            if (pesanRekening) {
+                pesanRekening.hidden = false;
+            }
+            btnBukaRekening.focus();
+        });
+    }
+
     // Tampilkan nama tamu dari parameter URL (?to=...).
     const elemenNama = document.getElementById("nama-tamu");
 

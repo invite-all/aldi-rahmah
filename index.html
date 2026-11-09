@@ -299,6 +299,15 @@
                         <h1 class="hal-5">Wedding Gift</h1>
                     </div>
                         <div class="container-rekening animasi-scroll animasi-zoom">
+                        <p class="pesan-rekening" id="pesanRekening">
+                            Kehadiran Anda adalah hadiah itu sendiri. Tetapi jika Anda ingin memberi kami sesuatu yang lain,
+                            silakan ketuk tombol di bawah ini untuk informasi lebih lanjut.
+                        </p>
+                        <button type="button" class="btn-buka-rekening" id="btnBukaRekening"
+                            aria-expanded="false" aria-controls="daftarRekening">
+                            Kirim Hadiah
+                        </button>
+                        <div class="daftar-rekening animasi-scroll animasi-zoom" id="daftarRekening" hidden>
                             <div class="bagian-atas">
                                 <img src="img/halaman5/Rekening1.png" class="rekening1">
                                 <div class="card-rekening">
@@ -331,9 +340,13 @@
                                         <button type="button" class="btn-salin" onclick="salinRekening('NomorRek2', this)">
                                             <i class="bi bi-clipboard"></i> Salin</button>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
+                            <button type="button" class="btn-tutup-rekening" id="btnTutupRekening">
+                                Tutup
+                            </button>
                         </div>
+                    </div>
                     <div class="pohon-kiri-atas-pembungkus animasi-scroll animasi-kiri">
                         <img src="img/asset/PohonKiri2.png" alt="Pohon Kiri Atas" class="pohon-kiri-atas">
                     </div>
