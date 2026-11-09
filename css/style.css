@@ -521,7 +521,6 @@ body.undangan-terkunci {
     object-fit: fill;
     z-index: 2;          
     pointer-events: none;
-    opacity: 0.9 !important;
 }
 
 /* Isi konten di Dalam Bingkai */
@@ -606,7 +605,6 @@ body.undangan-terkunci {
     height: 100%;
     border-radius: 0 0 0 0;
     z-index: 5;
-    opacity: 0.8 !important;
 }
 
 .konten-kapsul {
@@ -617,7 +615,6 @@ body.undangan-terkunci {
     background-color: rgba(255, 255, 255, 0.900);
     border-radius: 180px;
     border: 5px solid #690b0b; /* Menggantikan outline agar ramah Safari iOS */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1863,6 +1860,14 @@ h1.mertua {
 }
 
 
+
+/* ATURAN HOOVER PC */
+@media (hover: hover) {
+    .foto-mempelai:hover {
+        transform: scale(1.02);
+        box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.523);
+    }
+}
 /* //! UKURAN HP */
 @media (max-width: 450px) {
     .split-container {
@@ -1932,6 +1937,12 @@ h1.mertua {
     html, body {
         height: auto;
         overflow: auto;
+    }
+
+    .awan,
+    .gunungbawah {
+        width: 100%;
+        max-width: 100%;
     }
 
     .left-side { display: none; }
