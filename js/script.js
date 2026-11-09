@@ -76,6 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Buka cover, mulai media, dan aktifkan scroll
     if (btnBuka) {
         btnBuka.addEventListener("click", function () {
+            document.documentElement.classList.remove("undangan-terkunci");
+            document.body.classList.remove("undangan-terkunci");
+
             if (bgMusic) {
                 bgMusic.play().catch(function (error) {
                     console.error("Musik undangan gagal diputar:", error);
@@ -215,6 +218,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const modal = document.getElementById("imageModal");
+    if (modal && modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+    }
+
     const modalBody = document.querySelector("#imageModal .modal-body");
     const modalImage = document.getElementById("modalImage");
 
