@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style id="uji"></style>
+    <style id="uji"></style>
     <script>
     (function () {
-    var q = new URLSearchParams(location.search), css = "";
-    if (q.has("p3img")) css += ".halaman-3 img{display:none!important}";
-    if (q.has("p3fx"))  css += ".halaman-3 *{box-shadow:none!important;filter:none!important;backdrop-filter:none!important}";
-    document.getElementById("uji").textContent = css;
+      var q = new URLSearchParams(location.search), css = "";
+      if (q.has("p3anim")) css += ".halaman-3 *{animation:none!important}";
+      if (q.has("p3bg"))   css += ".halaman-3 .awan,.halaman-3 .gunungbawah,.halaman-3 .pohonbelakang,.halaman-3 .rumah,.halaman-3 .airterjun{display:none!important}";
+      if (q.has("p3orn"))  css += ".halaman-3 [class*='pohonkiri'],.halaman-3 [class*='pohonkanan'],.halaman-3 [class*='bunga']{display:none!important}";
+      if (q.has("p3foto")) css += ".halaman-3 .foto-mempelai{display:none!important}";
+      document.getElementById("uji").textContent = css;
     })();
     </script>
     <title data-konten="pageTitle"></title>
