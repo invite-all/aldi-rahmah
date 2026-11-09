@@ -594,17 +594,7 @@ body.undangan-terkunci {
     min-height: 1600px;
     position: relative;
     overflow: hidden;
-}
-
-/* Isi konten di dalam kapsul */
-.kapsul-dasar {
-    
-    position: absolute;
-    width: 110%;
-    max-width: 200%;
-    height: 100%;
-    border-radius: 0 0 0 0;
-    z-index: 5;
+    background: url('../img/halaman3/latar_result.webp') no-repeat center center;
 }
 
 .konten-kapsul {
@@ -872,26 +862,7 @@ h1.mertua {
     transform-origin: bottom right;
     animation: masukKanan 1.4s ease-out forwards, ayunBunga 10s ease-in-out infinite 1.4s;
 }
-.awan {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: auto;
-    object-fit: cover;
-    z-index: 1; /* Di atas dasar, di bawah teks */
-    pointer-events: none;
-}
-.gunungbawah {
-    position: absolute;
-    bottom: 300px;
-    left: 0;
-    width: 120%;
-    height: auto;
-    object-fit: cover;
-    z-index: 0; /* Di atas dasar, di bawah teks */
-    pointer-events: none;
-}
+
 .bunga-animasi {
     animation: mekar 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     position: absolute;
@@ -902,37 +873,7 @@ h1.mertua {
     object-fit: contain;
     pointer-events: none;
 }
-.pohonbelakang {
-    position: absolute;
-    bottom: 260px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120%;
-    max-width: 600px;
-    height: auto;
-    z-index: 2;
-    pointer-events: none;
-}
-.rumah {
-    position: absolute;
-    bottom: 130px;
-    left: 53%;
-    transform: translateX(-50%);
-    width: 530px;
-    height: auto;
-    z-index: 2;
-    pointer-events: none;
-}
-.airterjun {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 115%;
-    height: auto;
-    z-index: 3;
-    pointer-events: none;
-}
+
 
 
 
@@ -1899,24 +1840,6 @@ h1.mertua {
         margin: 0 auto;
     }    
 
-    
-    /* .pohonkiri1,
-    .pohonkiri2,
-    .pohonkanan1,
-    .pohonkanan2,
-    .bungakanan,
-    .pohon-kiri-atas,
-    .pohon-kanan-bawah,
-    .pohonkiri-1,
-    .pohonkiri-2,
-    .pohonkiri-3,
-    .pohonkanan-1,
-    .pohonkanan-2,
-    .pohonkanan-3,
-    .bungakiri {
-        animation: none;
-    } */
-
 }
 
 /* Tampilan Default (Layar Lebar) */
@@ -1937,12 +1860,6 @@ h1.mertua {
     html, body {
         height: auto;
         overflow: auto;
-    }
-
-    .awan,
-    .gunungbawah {
-        width: 100%;
-        max-width: 100%;
     }
 
     .left-side { display: none; }
