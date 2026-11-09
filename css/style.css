@@ -1891,7 +1891,7 @@ h1.mertua {
     }    
 
     
-    .pohonkiri1,
+    /* .pohonkiri1,
     .pohonkiri2,
     .pohonkanan1,
     .pohonkanan2,
@@ -1906,7 +1906,7 @@ h1.mertua {
     .pohonkanan-3,
     .bungakiri {
         animation: none;
-    }
+    } */
 
 }
 
@@ -1923,11 +1923,14 @@ h1.mertua {
     width: 60%;
 }
 
-/* Tampilan HP / Layar di bawah 650px */
+
 @media (max-width: 768px) {
-    .left-side {
-        display: none; /* Sembunyikan bagian kiri */
+    html, body {
+        height: auto;
+        overflow: auto;
     }
+
+    .left-side { display: none; }
 
     .welcome-cover {
         left: 0;
@@ -1935,21 +1938,37 @@ h1.mertua {
         margin: 0 auto;
     }
 
-    .halaman-rekening .nama-norek {
-        text-align: left;
-    }
+    .halaman-rekening .nama-norek { text-align: left; }
 
     .container {
         display: flex;
-        justify-content: center; /* Memosisikan container ke tengah */
+        justify-content: center;
         align-items: center;
         width: 100%;
     }
 
     .right-side {
         width: 100%;
-        max-width: 450px;   /* Opsional: membatasi lebar agar tetap rapi */
-        margin: 0 auto;     /* Memaksa elemen berada tepat di tengah */
-        text-align: center; /* Membuat teks dan tombol di dalamnya rata tengah */
+        max-width: 450px;
+        min-width: 0;
+        margin: 0 auto;
+        text-align: center;
+        height: auto;
+        overflow: visible !important;
+        background: none;
+        isolation: isolate;
+    }
+
+    /* foto latar tetap seukuran layar, diam di belakang isi */
+    .right-side::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: min(100%, 450px);
+        transform: translateX(-50%);
+        z-index: -1;
+        background: url('img/asset/prewed.webp') center / cover no-repeat;
     }
 }
