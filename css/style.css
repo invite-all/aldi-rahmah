@@ -26,10 +26,9 @@ body {
 
 .split-container {
     display: flex;
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     height: auto;
-    /* Pastikan kontainer utama menggunakan flex row di layar besar */
     flex-direction: row;
 }
 
@@ -75,12 +74,11 @@ body {
 
 /*//! BAGIAN KANAN (Viewport Khusus / Mobile Ratio) */
 .right-side {
-    overflow: hidden;
     width: 450px;
     min-width: 450px;
     flex-shrink: 2; 
-    height: 100vh;
-    overflow-y: hidden;
+    min-height: 100vh;
+    height: auto; /* Biarkan mengikuti panjang konten di docscroll */
     position: relative;
     isolation: isolate;
     box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.1); 
@@ -741,11 +739,10 @@ body {
     color: #741302;
     font-size: 60px;
     font-weight: 400;
-    position: flex;
+    display: flex; /* Menggantikan position: flex */
     justify-content: center;
-    top: 30%;
-    
 }
+
 .dan {
     font-family: "Alex Brush", cursive;
     font-weight: 400;
@@ -1935,8 +1932,16 @@ h1.mertua {
 
 /* Tampilan HP / Layar di bawah 650px */
 @media (max-width: 768px) {
-    html, body { height: auto !important; overflow: auto !important; }
-    .left-side { display: none; }
+    html, body { 
+        height: auto !important; 
+        overflow-x: hidden !important;
+        overflow-y: auto !important; 
+    }
+
+    .left-side { 
+        display: none; 
+    }
+
     .right-side {
         height: auto !important;
         overflow: visible !important;
@@ -1946,12 +1951,18 @@ h1.mertua {
         margin: 0 auto;
     }
 
+    /* Pastikan background pseudo-element menyesuaikan lebar layar HP */
+    .right-side::before {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
     .welcome-cover {
         left: 0;
         right: 0;
         margin: 0 auto;
     }
-    
 
     .halaman-rekening .nama-norek {
         text-align: left;
@@ -1959,9 +1970,8 @@ h1.mertua {
 
     .container {
         display: flex;
-        justify-content: center; /* Memosisikan container ke tengah */
+        justify-content: center;
         align-items: center;
         width: 100%;
     }
-
 }

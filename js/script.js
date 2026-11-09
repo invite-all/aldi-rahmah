@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Buka cover, mulai media, dan aktifkan scroll.
+    // Buka cover, mulai media, dan aktifkan scroll
     if (btnBuka) {
         btnBuka.addEventListener("click", function () {
             if (bgMusic) {
@@ -97,7 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Video pembuka gagal diputar:", error);
                 });
             }
-            if (rightSide) {
+            
+            // PERBAIKAN: Hanya beri overflow-y auto di desktop agar tidak memicu crash di mobile/iOS
+            if (rightSide && window.innerWidth > 768) {
                 rightSide.style.overflowY = "auto";
             }
         });
@@ -233,7 +235,13 @@ document.addEventListener("DOMContentLoaded", function () {
         modalImage.addEventListener("pointerdown", function (event) {
             if (event.pointerType === "mouse" && event.button !== 0) return;
             event.preventDefault();
-            modalImage.setPointerCapture(event.pointerId);
+            
+            try {
+                modalImage.setPointerCapture(event.pointerId);
+            } catch (err) {
+                // Abaikan jika pointer capture gagal di beberapa browser iOS lama
+            }
+            
             zoomPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
             if (zoomPointers.size === 1) {
@@ -464,29 +472,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//! FUNGSI SALIN NOREK
+//! FUNGSI SALIN NOREK (AMUNISI LENGKAP UNTUK ALL BROWSER)
 function salinRekening(idElemen, tombol) {
-    // 1. Ambil teks nomor rekening berdasarkan ID
-    const noRekening = document.getElementById(idElemen).innerText;
+    const noRekening = document.getElementById(idElemen).innerText.trim();
 
-    // 2. Salin teks ke clipboard HP/Komputer
-    navigator.clipboard.writeText(noRekening).then(() => {
-        // Simpan teks asli tombol
+    const suksesSalin = () => {
         const teksAsli = tombol.innerHTML;
-
-        // Ubah tampilan tombol sementara sebagai umpan balik
         tombol.innerHTML = "Disalin!";
-        tombol.style.backgroundColor = "#acacac"; // Warna hijau
+        tombol.style.backgroundColor = "#acacac";
         tombol.style.color = "#343333";
 
-        // Kembalikan tombol ke tampilan semula setelah 2 detik
         setTimeout(() => {
             tombol.innerHTML = teksAsli;
             tombol.style.backgroundColor = ""; 
             tombol.style.color = "";
-        }, 500);
-    }).catch(err => {
-        console.error("Gagal menyalin teks: ", err);
-        alert("Gagal menyalin nomor rekening.");
-    });
+        }, 1500);
+    };
+
+    // 1. Coba gunakan Clipboard API modern
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(noRekening)
+            .then(suksesSalin)
+            .catch(() => fallbackSalin(noRekening, suksesSalin));
+    } else {
+        // 2. Fallback untuk HTTP / Browser iOS lama / In-App Browser
+        fallbackSalin(noRekening, suksesSalin);
+    }
+}
+
+function fallbackSalin(teks, callback) {
+    const tempInput = document.createElement("textarea");
+    tempInput.value = teks;
+    tempInput.style.position = "fixed";
+    tempInput.style.left = "-9999px";
+    document.body.appendChild(tempInput);
+    tempInput.focus();
+    tempInput.select();
+
+    try {
+        document.execCommand("copy");
+        callback();
+    } catch (err) {
+        alert("Gagal menyalin nomor rekening, silakan salin secara manual.");
+    } finally {
+        document.body.removeChild(tempInput);
+    }
 }
