@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Link Undangan - Aldi & Rahmah</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #350202;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 16px;
+        }
+        .card-admin {
+            background: #ffffff;
+            color: #333333;
+            padding: 24px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        h2 {
+            margin-top: 0;
+            color: #580816;
+            font-size: 1.35rem;
+            text-align: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #444;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            background-color: #fff;
+        }
+        textarea {
+            resize: vertical;
+            line-height: 1.4;
+        }
+        .btn-main {
+            width: 100%;
+            padding: 12px;
+            background-color: #580816;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: background 0.2s;
+        }
+        .btn-main:hover {
+            background-color: #780b1e;
+        }
+        .btn-wa {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-wa:hover {
+            background-color: #1ebc57;
+        }
+        .btn-ig {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-ig:hover {
+            opacity: 0.95;
+        }
+        .btn-share {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-share:hover {
+            background-color: #2d3748;
+        }
+        .btn-copy {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .btn-reset {
+            background: none;
+            border: none;
+            color: #c53030;
+            font-size: 0.78rem;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+            float: right;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 2px dashed #e2e8f0;
+            display: none;
+        }
+        .copied-badge {
+            color: #25D366;
+            font-size: 0.82rem;
+            font-weight: bold;
+            display: none;
+            margin-top: 4px;
+            text-align: center;
+        }
+        .hint {
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-admin">
+    <h2>Generator Link Undangan</h2>
+    
+    <div class="form-group">
+        <label for="namaTamu">Nama Tamu / Penerima:</label>
+        <input type="text" id="namaTamu" placeholder="Contoh: Budi Santoso & Partner">
+    </div>
+
+    <div class="form-group">
+        <label for="noHp">Nomor WhatsApp Tamu (Opsional):</label>
+        <input type="tel" id="noHp" placeholder="Contoh: 08123456789 atau 628123456789">
+    </div>
+
+    <div class="form-group">
+        <label for="templateText">
+            Template Kalimat Undangan:
+            <button type="button" class="btn-reset" onclick="resetTemplate()">Reset ke Default</button>
+        </label>
+        <textarea id="templateText" rows="9"></textarea>
+        <div class="hint">Gunakan <code>{nama}</code> untuk posisi nama tamu dan <code>{link}</code> untuk lokasi link undangan.</div>
+    </div>
+
+    <button type="button" class="btn-main" onclick="buatLink()">Buat Link & Teks WhatsApp</button>
+
+    <div class="result-box" id="resultBox">
+        <div class="form-group">
+            <label>Link Undangan Khusus:</label>
+            <input type="text" id="outputLink" readonly>
+            <button type="button" class="btn-copy" onclick="salinLink()">📋 Salin Link</button>
+            <div class="copied-badge" id="badgeSuccess">✓ Link berhasil disalin!</div>
+        </div>
+
+        <div class="form-group">
+            <label>Hasil Pesan Undangan Siap Kirim:</label>
+            <textarea id="outputPesan" rows="10" readonly></textarea>
+            <button type="button" class="btn-wa" id="btnKirimWA" onclick="kirimWA()">💬 Kirim Langsung via WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const baseURL = "https://invite-all.github.io/aldi-rahmah/";
+
+    const defaultTemplate = `*Assalamu’alaikum Warahmatullahi Wabarakatuh*
+Kepada Yth. {nama}
+
+Dengan segala kerendahan hati dan dengan ucapan syukur atas Rahmat Allah Subhanahu wa Ta’ala, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami
+
+*Detail Acara*
+{link}
+
+Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu pada hari yang berbahagia ini.
+Terima kasih atas perhatiannya.
+
+Kami yang berbahagia,
+
+*Aldi & Rahmah*`;
+
+    // Memuat template dari localStorage jika ada, atau gunakan default
+    document.addEventListener("DOMContentLoaded", function () {
+        const savedTemplate = localStorage.getItem("custom_invitation_template");
+        document.getElementById("templateText").value = savedTemplate ? savedTemplate : defaultTemplate;
+
+        // Tampilkan tombol bagikan jika browser HP mendukung Web Share API
+        if (navigator.share) {
+            const btnShare = document.getElementById('btnWebShare');
+            if (btnShare) btnShare.style.display = 'block';
+        }
+    });
+
+    // Simpan template secara otomatis saat diedit
+    document.getElementById("templateText").addEventListener("input", function() {
+        localStorage.setItem("custom_invitation_template", this.value);
+    });
+
+    function resetTemplate() {
+        if (confirm("Kembalikan template kalimat ke format awal?")) {
+            document.getElementById("templateText").value = defaultTemplate;
+            localStorage.removeItem("custom_invitation_template");
+        }
+    }
+
+    function buatLink() {
+        const nama = document.getElementById('namaTamu').value.trim();
+        let hp = document.getElementById('noHp').value.trim();
+        const customTemplate = document.getElementById('templateText').value;
+
+        if (!nama) {
+            alert("Harap masukkan nama tamu!");
+            return;
+        }
+
+        // 1. Format URL link khusus tamu
+        const encodedNama = encodeURIComponent(nama);
+        const fullLink = `${baseURL}?to=${encodedNama}`;
+
+        // 2. Olah template kalimat WA
+        let pesanWA = customTemplate.replace(/\{nama\}/g, nama);
+        pesanWA = pesanWA.replace(/\{link\}/g, fullLink);
+
+        // 3. Format nomor HP ke standar 62...
+        if (hp.startsWith('0')) {
+            hp = '62' + hp.slice(1);
+        }
+        hp = hp.replace(/[^0-9]/g, '');
+
+        // 4. Masukkan hasil ke UI
+        document.getElementById('outputLink').value = fullLink;
+        document.getElementById('outputPesan').value = pesanWA;
+        document.getElementById('resultBox').style.display = 'block';
+        document.getElementById('badgeSuccess').style.display = 'none';
+
+        // 5. Atur link tombol WA
+        const btnKirimWA = document.getElementById('btnKirimWA');
+        const encodedPesanWA = encodeURIComponent(pesanWA);
+        if (hp) {
+            btnKirimWA.setAttribute('data-target-wa', `https://api.whatsapp.com/send?phone=${hp}&text=${encodedPesanWA}`);
+        } else {
+            btnKirimWA.setAttribute('data-target-wa', `https://api.whatsapp.com/send?text=${encodedPesanWA}`);
+        }
+
+        // Scroll halus ke kotak hasil
+        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function salinLink() {
+        const inputLink = document.getElementById('outputLink');
+        inputLink.select();
+        inputLink.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(inputLink.value).then(() => {
+            const badge = document.getElementById('badgeSuccess');
+            badge.style.display = 'block';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 3000);
+        });
+    }
+
+    function kirimWA() {
+        const targetWA = document.getElementById('btnKirimWA').getAttribute('data-target-wa');
+        if (targetWA) {
+            window.open(targetWA, '_blank');
+        }
+    }
+
+    function salinPesanLengkap() {
+        const inputPesan = document.getElementById('outputPesan');
+        inputPesan.select();
+        inputPesan.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(inputPesan.value).then(() => {
+            alert("✓ Seluruh pesan undangan berhasil disalin! Siap di-paste di Instagram DM.");
+        });
+    }
+
+    function bagikanKeApp() {
+        const nama = document.getElementById('namaTamu').value.trim();
+        const link = document.getElementById('outputLink').value;
+        const pesan = document.getElementById('outputPesan').value;
+
+        if (navigator.share) {
+            navigator.share({
+                title: `Undangan Pernikahan - ${nama}`,
+                text: pesan,
+                url: link
+            }).catch((err) => console.log('Batal berbagi:', err));
+        }
+    }
+</script>
+
+</body>
+</html>
