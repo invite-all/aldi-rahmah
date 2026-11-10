@@ -85,6 +85,34 @@ document.addEventListener("DOMContentLoaded", function () {
     const cover = document.getElementById("welcomeCover");
     const rightSide = document.getElementById("rightSide");
 
+    const pantauArahScroll = function (target, ambilPosisi) {
+        let posisiSebelumnya = ambilPosisi();
+
+        target.addEventListener("scroll", function () {
+            const posisiSekarang = ambilPosisi();
+
+            if (posisiSekarang > posisiSebelumnya) {
+                musicBtn.classList.remove("terlihat");
+            } else if (posisiSekarang < posisiSebelumnya) {
+                musicBtn.classList.add("terlihat");
+            }
+
+            posisiSebelumnya = posisiSekarang;
+        }, { passive: true });
+    };
+
+    if (musicBtn) {
+        pantauArahScroll(window, function () {
+            return window.scrollY;
+        });
+
+        if (rightSide) {
+            pantauArahScroll(rightSide, function () {
+                return rightSide.scrollTop;
+            });
+        }
+    }
+
     // Sinkronkan tombol musik dengan status audio.
     if (bgMusic && musicBtn) {
         bgMusic.addEventListener("play", function () {
