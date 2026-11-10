@@ -215,6 +215,7 @@
             <label>Hasil Pesan Undangan Siap Kirim:</label>
             <textarea id="outputPesan" rows="10" readonly></textarea>
             <button type="button" class="btn-copy-text" onclick="salinPesanLengkap()">Salin Teks Undangan</button>
+            <div class="copied-badge" id="badgePesanSuccess">✓ Teks undangan berhasil disalin!</div>
             <button type="button" class="btn-wa" id="btnKirimWA" onclick="kirimWA()">Kirim WhatsApp</button>
             <button type="button" class="btn-share" id="btnWebShare" onclick="bagikanKeApp()" style="display: none;">📲 Share</button>
         </div>
@@ -333,7 +334,11 @@ Kami yang berbahagia,
         inputPesan.setSelectionRange(0, 99999);
 
         navigator.clipboard.writeText(inputPesan.value).then(() => {
-            alert("✓ Teks pesan undangan berhasil disalin! Tinggal paste di mana saja (WhatsApp, Instagram DM, SMS).");
+            const badge = document.getElementById('badgePesanSuccess');
+            badge.style.display = 'block';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 3000);
         });
     }
 
