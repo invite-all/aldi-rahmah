@@ -89,6 +89,22 @@
         .btn-wa:hover {
             background-color: #1ebc57;
         }
+        .btn-copy-text {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .btn-copy-text:hover {
+            background-color: #2d3748;
+        }
         .btn-ig {
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: white;
@@ -198,7 +214,9 @@
         <div class="form-group">
             <label>Hasil Pesan Undangan Siap Kirim:</label>
             <textarea id="outputPesan" rows="10" readonly></textarea>
-            <button type="button" class="btn-wa" id="btnKirimWA" onclick="kirimWA()">💬 Kirim Langsung via WhatsApp</button>
+            <button type="button" class="btn-copy-text" onclick="salinPesanLengkap()">Salin Teks Undangan</button>
+            <button type="button" class="btn-wa" id="btnKirimWA" onclick="kirimWA()">Kirim WhatsApp</button>
+            <button type="button" class="btn-share" id="btnWebShare" onclick="bagikanKeApp()" style="display: none;">📲 Share</button>
         </div>
     </div>
 </div>
@@ -315,7 +333,7 @@ Kami yang berbahagia,
         inputPesan.setSelectionRange(0, 99999);
 
         navigator.clipboard.writeText(inputPesan.value).then(() => {
-            alert("✓ Seluruh pesan undangan berhasil disalin! Siap di-paste di Instagram DM.");
+            alert("✓ Teks pesan undangan berhasil disalin! Tinggal paste di mana saja (WhatsApp, Instagram DM, SMS).");
         });
     }
 
